@@ -12,7 +12,6 @@ included:
 - zsh-autosuggestions
 - git
 - zoxide
-- zsh-interactive-cd
 - colored-man-pages
 - command-not-found
 - you-should-use
