@@ -10,25 +10,21 @@ ZSH_THEME="robbyrussell" # other recommended themes: bira, fino, awesomepanda
 # for performance
 zstyle ':omz:update' frequency 13
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
 plugins=(
     fzf-tab # Fuzzy tab completion with preview - must be first!
     # git     # Git aliases (personally i dont like but you can uncomment if you want it)
     zsh-syntax-highlighting  # Syntax highlighting as you type
     zsh-autosuggestions      # Command history suggestions
     zoxide  # Smart cd with frecency (initialized below)
-    zsh-interactive-cd       # Interactive cd with fzf
     colored-man-pages        # Colored manual pages
     command-not-found        # Suggests packages for missing commands
     you-should-use           # Reminds of aliases you should be using
 )
 
-# zsh-completions must be added to fpath before loading oh-my-zsh (separate plugin to avoid conflicts)
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-autoload -U compinit && compinit
-
 # Source oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
-
 
 # History Configuration
 export HISTFILE="$HOME/.zsh_history"
