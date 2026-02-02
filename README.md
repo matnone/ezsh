@@ -6,7 +6,7 @@
 
 ## plugins
 
-must:
+included:
 
 - zsh-syntax-highlighting
 - zsh-autosuggestions
@@ -18,7 +18,7 @@ must:
 - you-should-use
 - fzf-tab
 
-complex: (might add later)
+might add later:
 
 - dirhistory
 - sudo
@@ -26,3 +26,14 @@ complex: (might add later)
 - extract
 - history
 - tmux
+
+## adding plugins
+
+If the plugin in included by default in oh-my-zsh  
+then you can just add it to the plugins list in `.zshrc`
+
+### custom plugins
+
+1. clone repo to `/plugins`
+2. remove the `.git/` directory from the plugins folder
+3. add to plugins list in `.zshrc`
