@@ -99,6 +99,7 @@ fi
 if [ -d "./zsh_helpers" ]; then
     ZSH_HELPERS_DIR="$HOME/.zsh_helpers"
     
+    mv "$ZSH_HELPERS_DIR" "$ZSH_HELPERS_DIR bkp_$(date +%Y%m%d_%H%M%S)"
     cp -r --no-preserve=mode ./zsh_helpers "$ZSH_HELPERS_DIR" || {
         print_error "Failed to copy zsh_helpers"
         exit 1
