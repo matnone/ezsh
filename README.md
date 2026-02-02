@@ -1,7 +1,7 @@
 # EZSH - easy-sh
 
 no-fuss easy install zsh with plugins (oh-my-zsh) and a couple of useful toolings  
-config is oppinionated yet open for configuration  
+config is opinionated yet open for configuration  
 
 this is mainly for developers / engineers
 wanting simple but better experiance in the terminal with minimal fuss  
@@ -10,7 +10,11 @@ currently only supports debian based distos
 
 ## install
 
-run `./install.sh` and wait
+clone repo then:
+```bash
+cd ezsh
+./install.sh
+```
 
 ## plugins
 

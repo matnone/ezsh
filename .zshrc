@@ -50,7 +50,8 @@ setopt PUSHD_IGNORE_DUPS    # Don't push duplicates onto directory stack
 
 # Spelling correction
 setopt CORRECT              # Correct misspelled commands
-setopt CORRECT_ALL          # Correct all arguments, not just the command
+#setopt CORRECT_ALL          # Correct all arguments, not just the command
+setopt SHARE_HISTORY
 
 # Completion Options
 setopt MENU_COMPLETE        # Auto-select first completion option

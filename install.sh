@@ -12,7 +12,7 @@ OMZ_DIR="$HOME/.oh-my-zsh"
 CUSTOM_PLUGINS_DIR="$HOME/.oh-my-zsh/custom/"
 ZSHRC_BACKUP_DIR="$HOME/.zshrc.backup"
 OMZ_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-PACKAGES=("zoxide" "fzf" "ripgrep" "bat" "eza")
+PACKAGES=("zoxide" "fzf" "ripgrep" "bat" "eza" "fd-find" "tldr")
 
 # Helper functions
 print_success() {
@@ -31,6 +31,13 @@ print_warning() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
 
+# Check if running from the ezsh repository directory
+if [ ! -f "./.zshrc" ]; then
+    print_error "Must run install.sh from the ezsh repository directory"
+    print_error ".zshrc file not found in current directory"
+    exit 1
+fi
+
 # Request sudo permission at the beginning
 print_info "Requesting sudo permissions..."
 sudo -v
@@ -39,6 +46,22 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 print_success "Sudo permissions granted"
+
+echo ""
+
+# Check if zsh is installed, install if not
+if ! command -v zsh &> /dev/null; then
+    print_info "zsh not found. Installing zsh..."
+    sudo apt update
+    sudo apt install -y zsh
+    if [ $? -ne 0 ]; then
+        print_error "Failed to install zsh"
+        exit 1
+    fi
+    print_success "zsh installed"
+else
+    print_info "zsh is already installed"
+fi
 
 echo ""
 
@@ -65,16 +88,11 @@ else
 fi
 
 # Copy custom .zshrc
-if [ -f "./.zshrc" ]; then
-    cp "./.zshrc" "$HOME/.zshrc" || {
-        print_error "Failed to copy .zshrc"
-        exit 1
-    }
-    print_success "Copied Opinionated .zshrc"
-else
-    print_error ".zshrc file not found in current directory"
+cp "./.zshrc" "$HOME/.zshrc" || {
+    print_error "Failed to copy .zshrc"
     exit 1
-fi
+}
+print_success "Copied Opinionated .zshrc"
 
 # Copy all custom plugins
 if [ -d "./plugins" ]; then
@@ -83,8 +101,10 @@ if [ -d "./plugins" ]; then
         exit 1
     }
 
-    mv "$CUSTOM_PLUGINS_DIR/plugins" "$CUSTOM_PLUGINS_DIR/plugins_backup" 2>/dev/null
-    print_info "Made backup of current custom plugins dir"
+    if [ -d "$CUSTOM_PLUGINS_DIR/plugins" ]; then
+        mv "$CUSTOM_PLUGINS_DIR/plugins" "$CUSTOM_PLUGINS_DIR/plugins_backup" 2>/dev/null
+        print_info "Made backup of current custom plugins dir"
+    fi
 
     cp -r --no-preserve=mode ./plugins "$CUSTOM_PLUGINS_DIR" || {
         print_error "Failed to copy custom plugins"
@@ -99,7 +119,11 @@ fi
 if [ -d "./zsh_helpers" ]; then
     ZSH_HELPERS_DIR="$HOME/.zsh_helpers"
     
-    mv "$ZSH_HELPERS_DIR" "$ZSH_HELPERS_DIR bkp_$(date +%Y%m%d_%H%M%S)"
+    if [ -d "$ZSH_HELPERS_DIR" ]; then
+        mv "$ZSH_HELPERS_DIR" "${ZSH_HELPERS_DIR}_bkp_$(date +%Y%m%d_%H%M%S)" 2>/dev/null
+        print_info "Made backup of current zsh_helpers dir"
+    fi
+    
     cp -r --no-preserve=mode ./zsh_helpers "$ZSH_HELPERS_DIR" || {
         print_error "Failed to copy zsh_helpers"
         exit 1
@@ -114,11 +138,10 @@ print_info "Installing packages: ${PACKAGES[@]}"
 
 # Install packages
 for package in "${PACKAGES[@]}"; do
-    sudo apt install -y "$package" > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        print_success "Installed $package"
-    else
+    if sudo apt install -y "$package" 2>&1 | grep -q "E:"; then
         print_error "Failed to install $package"
+    else
+        print_success "Installed $package"
     fi
 done
 
