@@ -1,0 +1,18 @@
+[submodule "plugins/fzf-tab"]
+	path = plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
+[submodule "plugins/zsh-you-should-use"]
+	path = plugins/zsh-you-should-use
+	url = https://github.com/MichaelAquilina/zsh-you-should-use.git
+[submodule "plugins/you-should-use"]
+	path = plugins/you-should-use
+	url = https://github.com/MichaelAquilina/zsh-you-should-use.git
+[submodule "plugins/zsh-autosuggestions"]
+	path = plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "plugins/zsh-completions"]
+	path = plugins/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "plugins/zsh-syntax-highlighting"]
+	path = plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
