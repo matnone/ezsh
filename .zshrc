@@ -15,12 +15,14 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 plugins=(
     fzf-tab # Fuzzy tab completion with preview - must be first!
     # git     # Git aliases (personally i dont like but you can uncomment if you want it)
-    zsh-syntax-highlighting  # Syntax highlighting as you type
     zsh-autosuggestions      # Command history suggestions
     zoxide  # Smart cd with frecency (initialized below)
     colored-man-pages        # Colored manual pages
     command-not-found        # Suggests packages for missing commands
     you-should-use           # Reminds of aliases you should be using
+
+    # IF TYPING LAGS REMOVE THE FOLLOWING PLUGIN
+    zsh-syntax-highlighting  # Syntax highlighting as you type
 )
 
 # Source oh-my-zsh
@@ -51,7 +53,7 @@ setopt PUSHD_IGNORE_DUPS    # Don't push duplicates onto directory stack
 # Spelling correction
 setopt CORRECT              # Correct misspelled commands
 #setopt CORRECT_ALL          # Correct all arguments, not just the command
-setopt SHARE_HISTORY
+setopt SHARE_HISTORY       # Share history across different shells
 
 # Completion Options
 setopt MENU_COMPLETE        # Auto-select first completion option
@@ -60,8 +62,10 @@ setopt COMPLETE_IN_WORD     # Complete within word boundaries
 # Replaces cd with smart directory jumping based on frecency
 eval "$(zoxide init --cmd cd zsh)"
 
-# you-should-use ignore aliases
+# settings for extensions
 export YSU_IGNORED_ALIASES=("g" "gra")
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+#ZSH_HIGHLIGHT_MAXLENGTH=300  # Don't highlight very long commands
 
 # Source zsh helpers
 if [ -d "$HOME/.zsh_helpers" ]; then
