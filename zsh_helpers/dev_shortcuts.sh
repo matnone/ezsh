@@ -1,5 +1,7 @@
 # Developer productivity shortcuts
 
+alias actv='source .venv/bin/activate'
+
 # Quick server
 alias serve='python3 -m http.server'  # serve current dir on :8000
 
