@@ -51,7 +51,7 @@ setopt AUTO_PUSHD           # Push directory onto stack when cd-ing
 setopt PUSHD_IGNORE_DUPS    # Don't push duplicates onto directory stack
 
 # Spelling correction
-setopt CORRECT              # Correct misspelled commands
+#setopt CORRECT              # Correct misspelled commands
 #setopt CORRECT_ALL          # Correct all arguments, not just the command
 setopt SHARE_HISTORY       # Share history across different shells
 
